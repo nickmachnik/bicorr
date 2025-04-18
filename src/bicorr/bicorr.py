@@ -32,13 +32,10 @@ def biserial_correlation(cont_data: np.array, bin_data: np.array, rm_nan=True) -
     phi = norm.pdf(norm.ppf(q))
 
     bicorr = ((x1 - x0) * p * q) / (sx * phi)
-
-    n1 = np.sum(g1)
-    n0 = np.sum(g0)
+    
     n = len(g0)
-
-    bse = np.sqrt(((1 - bicorr ** 2) / n) * (1 / (p * q)))
-
+    # Hunter and Schmidt 1990
+    bse = np.sqrt(((p * q) / phi ** 2) * (1 - bicorr ** 2) ** 2 / (n - 3))
     return bicorr, bse
 
 
